@@ -5,6 +5,7 @@ import 'package:googleapis/calendar/v3.dart' as calendar;
 import 'package:flutter_google_auth/flutter_google_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_google_calendar/flutter_google_calendar.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -64,4 +65,23 @@ Future<List<DateTime>> fetchAvailableDates() async {
       ),
     );
   }
+}
+
+void main() async {
+  // Crea una instancia de la clase CalendarClient
+  final client = CalendarClient(
+    // Copia el código OAuth 2.0 que obtuviste en el paso 3
+    credentials: OAuthCredentials(
+      clientId: "Tu código OAuth 2.0",
+      clientSecret: "Tu código OAuth 2.0",
+    ),
+  );
+
+  // Obtén una lista de eventos del calendario
+  final events = await client.events();
+
+  // Imprime la lista de eventos
+  events.forEach((event) {
+    print(event.summary);
+  });
 }
